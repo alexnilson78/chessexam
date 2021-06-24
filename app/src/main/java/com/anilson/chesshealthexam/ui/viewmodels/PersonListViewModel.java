@@ -38,6 +38,7 @@ public class PersonListViewModel extends ViewModel {
         //TODO this is just a proof of concept for requesting a new person
         dataRepository.getPerson("Alex")
             .subscribe(person -> {
+                people.postValue(Arrays.asList(person));
                 Log.d("Test", "Sub result");
             }, Throwable::printStackTrace);
     }

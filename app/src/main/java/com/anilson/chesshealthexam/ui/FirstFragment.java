@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import com.anilson.chesshealthexam.databinding.FragmentListBinding;
@@ -38,10 +39,12 @@ public class FirstFragment extends Fragment {
             //TODO wire up adding new people
         });
 
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         if (getActivity() != null) {
             viewModel = new ViewModelProvider(getActivity()).get(PersonListViewModel.class);
             viewModel.getPeople().observe(getViewLifecycleOwner(), people -> {
-                //TODO
+                binding.recyclerView.swapAdapter(new PeopleAdapter(people), false);
                 Log.d("Test", "Loaded people");
             });
         }
