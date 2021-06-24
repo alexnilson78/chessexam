@@ -2,9 +2,13 @@ package com.anilson.chesshealthexam.db.daos;
 
 import com.anilson.chesshealthexam.db.entities.Person;
 
+import java.util.List;
+
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.Query;
 import androidx.room.Update;
 
 @Dao
@@ -17,4 +21,7 @@ public interface PersonDao {
 
     @Delete
     void delete(Person person);
+
+    @Query("SELECT * FROM person ORDER BY name DESC")
+    public LiveData<List<Person>> getPeople();
 }

@@ -1,7 +1,6 @@
 package com.anilson.chesshealthexam.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +36,7 @@ public class FirstFragment extends Fragment {
 
         binding.addButton.setOnClickListener(v -> {
             //TODO wire up adding new people
+            viewModel.getPerson("Alex");
         });
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -45,7 +45,6 @@ public class FirstFragment extends Fragment {
             viewModel = new ViewModelProvider(getActivity()).get(PersonListViewModel.class);
             viewModel.getPeople().observe(getViewLifecycleOwner(), people -> {
                 binding.recyclerView.swapAdapter(new PeopleAdapter(people), false);
-                Log.d("Test", "Loaded people");
             });
         }
     }
