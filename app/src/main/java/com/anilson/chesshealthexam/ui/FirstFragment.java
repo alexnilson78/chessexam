@@ -9,18 +9,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
 import dagger.hilt.android.AndroidEntryPoint;
 
-import com.anilson.chesshealthexam.R;
-import com.anilson.chesshealthexam.databinding.FragmentFirstBinding;
+import com.anilson.chesshealthexam.databinding.FragmentListBinding;
 import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
 
 @AndroidEntryPoint
 public class FirstFragment extends Fragment {
 
     private PersonListViewModel viewModel;
-    private FragmentFirstBinding binding;
+    private FragmentListBinding binding;
 
     @Override
     public View onCreateView(
@@ -28,7 +26,7 @@ public class FirstFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = FragmentListBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -36,18 +34,15 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
+        binding.addButton.setOnClickListener(v -> {
+            //TODO wire up adding new people
         });
+
         if (getActivity() != null) {
             viewModel = new ViewModelProvider(getActivity()).get(PersonListViewModel.class);
             viewModel.getPeople().observe(getViewLifecycleOwner(), people -> {
                 //TODO
-                Log.d("Dicks", "Loaded people");
+                Log.d("Test", "Loaded people");
             });
         }
     }
