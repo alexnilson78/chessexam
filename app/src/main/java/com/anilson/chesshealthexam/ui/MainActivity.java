@@ -1,4 +1,4 @@
-package com.anilson.chesshealthexam;
+package com.anilson.chesshealthexam.ui;
 
 import android.os.Bundle;
 
@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.anilson.chesshealthexam.R;
 import com.anilson.chesshealthexam.databinding.ActivityMainBinding;
 
 import android.view.Menu;
