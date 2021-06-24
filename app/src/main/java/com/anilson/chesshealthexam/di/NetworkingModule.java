@@ -3,12 +3,7 @@ package com.anilson.chesshealthexam.di;
 import com.anilson.chesshealthexam.BuildConfig;
 import com.anilson.chesshealthexam.networking.apis.GenderService;
 import com.anilson.chesshealthexam.networking.apis.NationalityService;
-import com.anilson.chesshealthexam.networking.helpers.AgeHelper;
-import com.anilson.chesshealthexam.networking.helpers.AgeHelperImpl;
 import com.anilson.chesshealthexam.networking.apis.AgeService;
-import com.anilson.chesshealthexam.networking.helpers.GenderHelper;
-import com.anilson.chesshealthexam.networking.helpers.NationalityHelper;
-import com.anilson.chesshealthexam.repositories.DataRepository;
 
 import javax.inject.Singleton;
 
@@ -41,52 +36,32 @@ public class NetworkingModule {
     @Provides
     @Singleton
     AgeService provideAgeService(OkHttpClient okHttpClient) {
-        return new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .baseUrl("https://api.agify.io/") //TODO constants
-                .client(okHttpClient)
+        return buildRetrofit("https://api.agify.io/", okHttpClient) //TODO constants
                 .build()
                 .create(AgeService.class);
     }
 
     @Provides
     @Singleton
-    AgeHelper provideAgeHelper(AgeHelperImpl ageHelper) {
-        return ageHelper;
-    }
-
-    @Provides
-    @Singleton
     GenderService provideGenderService(OkHttpClient okHttpClient) {
-        return new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://api.genderize.io/") //TODO constants
-                .client(okHttpClient)
+        return buildRetrofit("https://api.genderize.io/", okHttpClient) //TODO constants
                 .build()
                 .create(GenderService.class);
     }
 
     @Provides
     @Singleton
-    GenderHelper provideGenderHelper(GenderHelper genderHelper) {
-        return genderHelper;
-    }
-
-    @Provides
-    @Singleton
     NationalityService provideNationalityService(OkHttpClient okHttpClient) {
-        return new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://api.nationalize.io/") //TODO constants
-                .client(okHttpClient)
+        return buildRetrofit("https://api.nationalize.io/", okHttpClient) //TODO constants
                 .build()
                 .create(NationalityService.class);
     }
 
-    @Provides
-    @Singleton
-    NationalityHelper provideNationalityHelper(NationalityHelper nationalityHelper) {
-        return nationalityHelper;
+    private Retrofit.Builder buildRetrofit(String baseUrl, OkHttpClient okHttpClient) {
+        return new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .baseUrl(baseUrl)
+                .client(okHttpClient);
     }
 }

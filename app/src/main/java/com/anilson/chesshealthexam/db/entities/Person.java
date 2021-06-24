@@ -26,4 +26,14 @@ public class Person {
 
     @ColumnInfo
     public double genderProbability;
+
+    public Person(int uid, String name, int age, String countryCode, double countryProbability, String gender, double genderProbability) {
+        this.uid = uid;
+        this.name = name;
+        this.age = age;
+        this.countryCode = countryCode;
+        this.countryProbability = countryProbability;
+        this.gender = gender;
+        this.genderProbability = genderProbability;
+    }
 }

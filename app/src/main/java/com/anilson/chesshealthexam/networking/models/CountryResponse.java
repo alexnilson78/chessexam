@@ -1,15 +1,15 @@
 package com.anilson.chesshealthexam.networking.models;
 
 public class CountryResponse {
-    private String countryId;
+    private String country_id;
     private double probability;
 
-    public String getCountryId() {
-        return countryId;
+    public String getCountry_id() {
+        return country_id;
     }
 
-    public void setCountryId(String countryId) {
-        this.countryId = countryId;
+    public void setCountry_id(String country_id) {
+        this.country_id = country_id;
     }
 
     public double getProbability() {
