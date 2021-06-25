@@ -1,6 +1,9 @@
 package com.anilson.chesshealthexam.ui;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +54,7 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
         setUpSwipeHandler();
         setUpFilterButton();
         setUpSortIndicator();
+        setFilterTextWatchers();
     }
 
     @Override
@@ -95,12 +99,78 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
     }
 
     private void toggleFilterVisibility() {
-        if (binding.filterEditText.getVisibility() == View.VISIBLE) {
-            binding.filterEditText.setVisibility(View.GONE);
+        if (binding.countryCodeFilter.getVisibility() == View.VISIBLE) {
+            binding.countryCodeFilter.setVisibility(View.GONE);
+            binding.filterMinAge.setVisibility(View.GONE);
+            binding.filterMaxAge.setVisibility(View.GONE);
         } else {
-            binding.filterEditText.setVisibility(View.VISIBLE);
+            binding.countryCodeFilter.setVisibility(View.VISIBLE);
+            binding.filterMinAge.setVisibility(View.VISIBLE);
+            binding.filterMaxAge.setVisibility(View.VISIBLE);
         }
+        binding.countryCodeFilter.setText("");
+        binding.filterMinAge.setText("");
+        binding.filterMaxAge.setText("");
         //TODO clear filtering
+    }
+
+    private void setFilterTextWatchers() {
+        binding.countryCodeFilter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //NO OP
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //TODO
+                Log.d("Alex", "county code: " + s);
+                viewModel.setCountryCodeFilter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //NO OP
+            }
+        });
+
+        binding.filterMinAge.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //NO OP
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //TODO
+                Log.d("Alex", "min age: " + s);
+                viewModel.setMinAgeFilter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //NO OP
+            }
+        });
+
+        binding.filterMaxAge.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //NO OP
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //TODO
+                Log.d("Alex", "max age: " + s);
+                viewModel.setMaxAgeFilter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //NO OP
+            }
+        });
     }
 
     private void setUpSortIndicator() {

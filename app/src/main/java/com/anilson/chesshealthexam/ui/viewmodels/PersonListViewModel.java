@@ -17,17 +17,20 @@ public class PersonListViewModel extends ViewModel {
 
     private static final String TAG = PersonListViewModel.class.getSimpleName();
 
+    private final MutableLiveData<Person> selectedPerson = new MutableLiveData<>();
+    private LiveData<List<Person>> people;
+    private boolean isReversed = false;
+    private int minAgeFilter = 0;
+    private int maxAgeFilter = Integer.MAX_VALUE;
+    private String countryCodeFilter = "";
+    private String searchName = "";
+
     DataRepository dataRepository;
 
     @Inject
     public PersonListViewModel(DataRepository dataRepository) {
         this.dataRepository = dataRepository;
     }
-
-    private final MutableLiveData<Person> selectedPerson = new MutableLiveData<>();
-    private boolean isReversed = false;
-
-    private LiveData<List<Person>> people;
 
     public LiveData<List<Person>> getPeople() {
         if (people == null) {
@@ -54,7 +57,7 @@ public class PersonListViewModel extends ViewModel {
     }
 
     public void loadPeople() {
-        dataRepository.getAllPeople();
+        dataRepository.getFilteredPeople(searchName, countryCodeFilter, minAgeFilter, maxAgeFilter);
     }
 
     public void addPerson(String name) {
@@ -75,5 +78,35 @@ public class PersonListViewModel extends ViewModel {
 
     public void searchForPersonInAgeRange(int low, int high) {
         dataRepository.searchForPersonByAgeRange(low, high);
+    }
+
+    public void setCountryCodeFilter(String code) {
+        if (code != null && !code.isEmpty()) {
+            code = "%"+code+"%";
+        }
+        countryCodeFilter = code;
+    }
+
+    public void setMinAgeFilter(String age) {
+        if (age != null && !age.isEmpty()) {
+            this.minAgeFilter = Integer.parseInt(age);
+        } else {
+            this.minAgeFilter = 0;
+        }
+    }
+
+    public void setMaxAgeFilter(String age) {
+        if (age != null && !age.isEmpty()) {
+            this.maxAgeFilter = Integer.parseInt(age);
+        } else {
+            this.maxAgeFilter = Integer.MAX_VALUE;
+        }
+    }
+
+    public void setSearchName(String searchName) {
+        if (searchName != null && !searchName.isEmpty()) {
+            searchName = "%"+searchName+"%";
+        }
+        this.searchName = searchName;
     }
 }

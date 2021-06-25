@@ -19,7 +19,9 @@
     <string name="gender_format">Gender: %1$s (%2$s)</string>
     <string name="country_code_format">Country code: %1$s (%2$s)</string>
     <string name="probability">Probability</string>
-    <string name="filter_hint">Work in progress</string>
+    <string name="filter_country_hint">Country code</string>
+    <string name="min_age_hint">Min. Age</string>
+    <string name="max_age_hint">Max. Age</string>
     <string name="sort_indicator">Sort Indicator</string>
 
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>

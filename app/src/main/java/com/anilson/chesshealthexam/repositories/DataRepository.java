@@ -20,6 +20,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Response;
 
@@ -52,7 +53,7 @@ public class DataRepository {
         return people;
     }
 
-    public void getAllPeople() {
+    private void getAllPeople() {
         persistenceDatabase.personDao().getPeople()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -143,5 +144,28 @@ public class DataRepository {
                 }, throwable -> {
                     //TODO
                 });
+    }
+
+    public void getFilteredPeople(String name, String countryCode, int low, int high) {
+        determineFilterFunction(name, countryCode, low, high)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe( peopleUpdate -> {
+                    people.postValue(peopleUpdate);
+                }, throwable -> {
+                    //TODO
+                });
+    }
+
+    private Single<List<Person>> determineFilterFunction(String name, String countryCode, int low, int high) {
+        if (name!= null && !name.isEmpty() && countryCode != null && !countryCode.isEmpty()) {
+            return persistenceDatabase.personDao().filterPeople(name, countryCode, low, high);
+        } else if (name != null && !name.isEmpty()) {
+            return persistenceDatabase.personDao().filterPeople(low, high, name);
+        } else if (countryCode != null && !countryCode.isEmpty()) {
+            return persistenceDatabase.personDao().filterPeople(countryCode, low, high);
+        } else {
+            return persistenceDatabase.personDao().searchPeopleBetweenAges(low, high);
+        }
     }
 }

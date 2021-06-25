@@ -45,15 +45,44 @@
         android:src="@drawable/ic_baseline_filter_alt_24"/>
 
     <EditText
-        android:id="@+id/filterEditText"
-        android:layout_width="match_parent"
+        android:id="@+id/filterMinAge"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/nameLabel"
         app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:hint="@string/min_age_hint"
+        android:inputType="number"
+        android:maxLength="3"
+        android:importantForAutofill="no"/>
+
+    <EditText
+        android:id="@+id/filterMaxAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/nameLabel"
+        app:layout_constraintStart_toEndOf="@id/filterMinAge"
+        app:layout_constraintEnd_toStartOf="@id/countryCodeFilter"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:hint="@string/max_age_hint"
+        android:inputType="number"
+        android:maxLength="3"
+        android:importantForAutofill="no"/>
+
+    <EditText
+        android:id="@+id/countryCodeFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/nameLabel"
+        app:layout_constraintStart_toEndOf="@id/filterMaxAge"
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"
         tools:visibility="visible"
-        android:hint="@string/filter_hint"
+        android:hint="@string/filter_country_hint"
+        android:maxLength="2"
+        android:inputType="text"
         android:importantForAutofill="no" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -62,7 +91,7 @@
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/filterEditText"
+        app:layout_constraintTop_toBottomOf="@id/countryCodeFilter"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
