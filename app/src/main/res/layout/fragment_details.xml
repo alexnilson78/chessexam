@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="8dp"
     tools:context=".ui.DetailsFragment">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:textSize="@dimen/header_text_size"
         android:text="@string/age_label"/>
 
     <TextView
@@ -20,6 +22,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/ageLabelTextView"
         app:layout_constraintTop_toBottomOf="@id/ageLabelTextView"
+        android:textSize="@dimen/detail_info_text_size"
+        android:padding="4dp"
         tools:text="99"/>
 
     <TextView
@@ -28,6 +32,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/ageLabelTextView"
         app:layout_constraintTop_toBottomOf="@id/ageTextView"
+        android:textSize="@dimen/header_text_size"
         android:text="@string/gender_label"/>
 
     <TextView
@@ -36,6 +41,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/ageTextView"
         app:layout_constraintTop_toBottomOf="@id/genderLabelTextview"
+        android:textSize="@dimen/detail_info_text_size"
+        android:padding="4dp"
         tools:text="Male" />
 
     <TextView
@@ -44,14 +51,25 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/ageLabelTextView"
         app:layout_constraintTop_toBottomOf="@id/genderTextView"
+        android:textSize="@dimen/header_text_size"
         android:text="@string/country_code_label"/>
 
     <TextView
-        android:id="@+id/countrycodeTextview"
+        android:id="@+id/countryCodeTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/ageTextView"
         app:layout_constraintTop_toBottomOf="@id/countryCodeLabelTextView"
+        android:textSize="@dimen/detail_info_text_size"
+        android:padding="4dp"
         tools:text="US" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        app:layout_constraintTop_toTopOf="@id/countryCodeTextview"
+        app:layout_constraintBottom_toBottomOf="@id/countryCodeTextview"
+        app:layout_constraintStart_toEndOf="@id/countryCodeTextview"
+        android:contentDescription="@string/flag"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

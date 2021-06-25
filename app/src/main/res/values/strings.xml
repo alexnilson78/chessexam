@@ -24,11 +24,12 @@
     <string name="max_age_hint">Max. Age</string>
     <string name="sort_indicator">Sort Indicator</string>
     <string name="clear_search">Clear Search</string>
-    <string name="age_label">Age:</string>
-    <string name="gender_label">Gender:</string>
-    <string name="country_code_label">Country Code:</string>
+    <string name="age_label"><u>Age</u></string>
+    <string name="gender_label"><u>Gender</u></string>
+    <string name="country_code_label"><u>Country Code</u></string>
     <string name="argument_title">title</string>
     <string name="detail_format">%1$s (%2$s)</string>
+    <string name="flag">Flag</string>
     <string-array name="seed_names">
         <item>Brendan</item>
         <item>Tim</item>

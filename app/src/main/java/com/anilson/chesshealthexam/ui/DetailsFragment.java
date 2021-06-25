@@ -42,7 +42,7 @@ public class DetailsFragment extends Fragment {
                 NumberFormat percentFormat = NumberFormat.getPercentInstance();
                 percentFormat.setMinimumFractionDigits(2);
                 binding.ageTextView.setText(String.valueOf(person.age));
-                binding.countrycodeTextview.setText(getString(R.string.detail_format, person.countryCode, percentFormat.format(person.countryProbability)));
+                binding.countryCodeTextview.setText(getString(R.string.detail_format, person.countryCode, percentFormat.format(person.countryProbability)));
                 binding.genderTextView.setText(getString(R.string.detail_format, person.gender, percentFormat.format(person.genderProbability)));
             });
         }
