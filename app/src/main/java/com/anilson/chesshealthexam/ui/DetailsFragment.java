@@ -14,7 +14,7 @@ import com.anilson.chesshealthexam.R;
 import com.anilson.chesshealthexam.databinding.FragmentSecondBinding;
 import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
 
-public class SecondFragment extends Fragment {
+public class DetailsFragment extends Fragment {
 
     private PersonListViewModel viewModel;
 
@@ -37,8 +37,8 @@ public class SecondFragment extends Fragment {
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(SecondFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_ListFragment);
+                NavHostFragment.findNavController(DetailsFragment.this)
+                        .navigate(R.id.action_DetailsFragment_to_ListFragment);
             }
         });
 

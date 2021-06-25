@@ -187,6 +187,6 @@ public class ListFragment extends Fragment implements PeopleAdapter.Callback {
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.argument_title), person.name);
         viewModel.selectPerson(person);
-        NavHostFragment.findNavController(ListFragment.this).navigate(R.id.action_ListFragment_to_SecondFragment, bundle);
+        NavHostFragment.findNavController(ListFragment.this).navigate(R.id.action_ListFragment_to_DetailsFragment, bundle);
     }
 }
