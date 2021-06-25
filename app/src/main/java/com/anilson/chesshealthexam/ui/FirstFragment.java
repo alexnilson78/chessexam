@@ -49,20 +49,7 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         setUpSwipeHandler();
-
-        if (getActivity() != null) {
-            viewModel = new ViewModelProvider(getActivity()).get(PersonListViewModel.class);
-            viewModel.getIsReversed().observe(getViewLifecycleOwner(), isReversed -> {
-                isListingReversed = isReversed;
-                viewModel.loadPeople(); //TODO or redo search
-            });
-            viewModel.getPeople().observe(getViewLifecycleOwner(), people -> {
-                if(isListingReversed) {
-                    Collections.reverse(people);
-                }
-                binding.recyclerView.swapAdapter(new PeopleAdapter(people, FirstFragment.this), false);
-            });
-        }
+        setUpViewModel();
     }
 
     @Override
@@ -86,6 +73,22 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(binding.recyclerView);
+    }
+
+    private void setUpViewModel() {
+        if (getActivity() != null) {
+            viewModel = new ViewModelProvider(getActivity()).get(PersonListViewModel.class);
+            viewModel.getIsReversed().observe(getViewLifecycleOwner(), isReversed -> {
+                isListingReversed = isReversed;
+                viewModel.loadPeople(); //TODO or redo search
+            });
+            viewModel.getPeople().observe(getViewLifecycleOwner(), people -> {
+                if(isListingReversed) {
+                    Collections.reverse(people);
+                }
+                binding.recyclerView.swapAdapter(new PeopleAdapter(people, FirstFragment.this), false);
+            });
+        }
     }
 
     @Override
