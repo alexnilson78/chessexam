@@ -13,6 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintVertical_bias="0"
         android:textSize="@dimen/name_text_size"
         tools:text="Alex"/>
 
@@ -24,7 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
-        tools:text="12" />
+        tools:text="Age: 12" />
 
     <TextView
         android:id="@+id/genderTextView"
@@ -34,7 +35,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
-        tools:text="Male" />
+        tools:text="Gender: Male" />
 
     <TextView
         android:id="@+id/genderProbabilityTextView"
@@ -54,7 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
-        tools:text="US" />
+        tools:text="Country code: US" />
 
     <TextView
         android:id="@+id/nationalityProbability"
