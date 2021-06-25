@@ -15,6 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:hint="@string/add_person_hint"
         android:importantForAutofill="no"
+        android:imeOptions="actionDone"
         android:inputType="textPersonName" />
 
     <ImageView
