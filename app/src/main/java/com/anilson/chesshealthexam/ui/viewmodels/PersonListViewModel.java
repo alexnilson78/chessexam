@@ -60,11 +60,7 @@ public class PersonListViewModel extends ViewModel {
     }
 
     public void removePerson(Person person) {
-        dataRepository.removePerson(person)
-                .subscribe(person1 -> {
-                    Log.d(TAG, "Removed " + person1.name);
-                    loadPeople();
-                }, Throwable::printStackTrace);
+        dataRepository.removePerson(person);
     }
 
     public void searchForPerson(String name) {

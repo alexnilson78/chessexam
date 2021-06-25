@@ -9,7 +9,6 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 import io.reactivex.rxjava3.core.Single;
 
 @Dao
@@ -17,11 +16,8 @@ public interface PersonDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Person... people);
 
-    @Update
-    void update(Person... people);
-
     @Delete
-    void delete(Person person);
+    Single<Integer> delete(Person person);
 
     @Query("SELECT * FROM person ORDER BY name ASC")
     Single<List<Person>> getPeople();

@@ -8,6 +8,9 @@ import com.anilson.chesshealthexam.networking.apis.NationalityService;
 import com.anilson.chesshealthexam.networking.models.AgeResponse;
 import com.anilson.chesshealthexam.networking.models.GenderResponse;
 import com.anilson.chesshealthexam.networking.models.NationalityResponse;
+import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
+
+import android.util.Log;
 
 import java.util.List;
 
@@ -23,6 +26,8 @@ import retrofit2.Response;
 
 @Singleton
 public class DataRepository {
+
+    private static final String TAG = DataRepository.class.getSimpleName();
 
     private final AgeService ageService;
     private final GenderService genderService;
@@ -52,8 +57,8 @@ public class DataRepository {
         persistenceDatabase.personDao().getPeople()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(people1 -> {
-                    people.postValue(people1);
+                .subscribe(peopleUpdate -> {
+                    people.postValue(peopleUpdate);
                 }, throwable -> {
                     throwable.printStackTrace();
                 });
@@ -78,24 +83,26 @@ public class DataRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<Person> removePerson(Person person) {
-        return Observable.just(person)
-                .map(person1 -> {
-                    persistenceDatabase.personDao().delete(person1);
-                    return person1;
-                }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+    public void removePerson(Person person) {
+        persistenceDatabase.personDao().delete(person)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(i -> {
+                    Log.d(TAG, "Deleted " + person.name);
+                    getAllPeople();
+                }, throwable -> {
+                    //TODO
+                });
     }
 
     public void searchForPerson(String name) {
-
         persistenceDatabase.personDao().searchPeople("%"+name+"%")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(peopleUpdate -> {
                     people.postValue(peopleUpdate);
                 }, throwable -> {
-                    throwable.printStackTrace();
+                    //TODO
                 });
     }
 }
