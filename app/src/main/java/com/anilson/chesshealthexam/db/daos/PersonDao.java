@@ -25,4 +25,7 @@ public interface PersonDao {
 
     @Query("SELECT * FROM person ORDER BY name ASC")
     Single<List<Person>> getPeople();
+
+    @Query("SELECT * FROM person WHERE name LIKE :name")
+    Single<List<Person>> searchPeople(String name);
 }

@@ -86,4 +86,16 @@ public class DataRepository {
                 }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    public void searchForPerson(String name) {
+
+        persistenceDatabase.personDao().searchPeople("%"+name+"%")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(peopleUpdate -> {
+                    people.postValue(peopleUpdate);
+                }, throwable -> {
+                    throwable.printStackTrace();
+                });
+    }
 }

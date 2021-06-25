@@ -66,4 +66,8 @@ public class PersonListViewModel extends ViewModel {
                     loadPeople();
                 }, Throwable::printStackTrace);
     }
+
+    public void searchForPerson(String name) {
+        dataRepository.searchForPerson(name);
+    }
 }

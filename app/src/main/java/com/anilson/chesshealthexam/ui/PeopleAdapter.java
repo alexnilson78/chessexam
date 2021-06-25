@@ -28,12 +28,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
     @NotNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        ViewHolder viewHolder = new ViewHolder(ItemPersonBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-        viewHolder.binding.getRoot().setOnClickListener(v -> {
-            Person person = dataSet.get(viewHolder.getAdapterPosition());
-            callback.onListItemClick(person);
-        });
-        return viewHolder;
+        return new ViewHolder(ItemPersonBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -47,6 +42,9 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
         holder.binding.genderProbabilityTextView.setText(percentFormat.format(person.genderProbability));
         holder.binding.nationalityTextView.setText(person.countryCode);
         holder.binding.nationalityProbability.setText(percentFormat.format(person.countryProbability));
+        holder.binding.getRoot().setOnClickListener(v -> {
+            callback.onListItemClick(person);
+        });
     }
 
     @Override
