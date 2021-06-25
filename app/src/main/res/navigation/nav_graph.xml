@@ -25,8 +25,11 @@
         tools:layout="@layout/fragment_second">
 
         <argument
-            android:name="title"
+            android:name="@string/argument_title"
             app:argType="string" />
+        <argument
+            android:name="@string/argument_uid"
+            app:argType="integer" />
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"

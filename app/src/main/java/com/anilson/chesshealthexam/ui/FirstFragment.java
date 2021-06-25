@@ -20,7 +20,7 @@ import com.anilson.chesshealthexam.db.entities.Person;
 import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
 
 @AndroidEntryPoint
-public class FirstFragment extends Fragment {
+public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
 
     private PersonListViewModel viewModel;
     private FragmentListBinding binding;
@@ -51,7 +51,7 @@ public class FirstFragment extends Fragment {
         if (getActivity() != null) {
             viewModel = new ViewModelProvider(getActivity()).get(PersonListViewModel.class);
             viewModel.getPeople().observe(getViewLifecycleOwner(), people -> {
-                binding.recyclerView.swapAdapter(new PeopleAdapter(people), false);
+                binding.recyclerView.swapAdapter(new PeopleAdapter(people, FirstFragment.this), false);
             });
         }
     }
@@ -77,5 +77,13 @@ public class FirstFragment extends Fragment {
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(binding.recyclerView);
+    }
+
+    @Override
+    public void onListItemClick(Person person) {
+        Bundle bundle = new Bundle();
+        bundle.putString(getString(R.string.argument_title), person.name);
+        bundle.putInt(getString(R.string.argument_uid), person.uid);
+        NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
     }
 }

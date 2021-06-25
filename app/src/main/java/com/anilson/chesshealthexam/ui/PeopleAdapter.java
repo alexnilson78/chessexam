@@ -17,16 +17,23 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder> {
 
     private final List<Person> dataSet;
+    private final Callback callback;
 
-    public PeopleAdapter(List<Person> dataSet) {
+    public PeopleAdapter(List<Person> dataSet, Callback callback) {
         this.dataSet = dataSet;
+        this.callback = callback;
     }
 
     @NonNull
     @NotNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        return new ViewHolder(ItemPersonBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        ViewHolder viewHolder = new ViewHolder(ItemPersonBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        viewHolder.binding.getRoot().setOnClickListener(v -> {
+            Person person = dataSet.get(viewHolder.getAdapterPosition());
+            callback.onListItemClick(person);
+        });
+        return viewHolder;
     }
 
     @Override
@@ -59,5 +66,9 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
 
     public Person getItemAt(int position) {
         return dataSet.get(position);
+    }
+
+    public interface Callback {
+        void onListItemClick(Person person);
     }
 }
