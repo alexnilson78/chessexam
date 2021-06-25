@@ -80,7 +80,7 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
             viewModel = new ViewModelProvider(getActivity()).get(PersonListViewModel.class);
             viewModel.getIsReversed().observe(getViewLifecycleOwner(), isReversed -> {
                 isListingReversed = isReversed;
-                viewModel.loadPeople(); //TODO or redo search
+                //TODO handle as an event and reload list
             });
             viewModel.getPeople().observe(getViewLifecycleOwner(), people -> {
                 if(isListingReversed) {

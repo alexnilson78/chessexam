@@ -36,4 +36,8 @@
         android:id="@+id/addPersonDialog"
         android:name="com.anilson.chesshealthexam.ui.AddPersonDialog"
         android:label="@string/add_person" />
+
+    <action
+        android:id="@+id/action_global_FirstFragment"
+        app:destination="@id/FirstFragment" />
 </navigation>

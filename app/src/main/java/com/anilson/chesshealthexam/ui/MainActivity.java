@@ -84,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleSearchIntent(Intent intent) {
         String query = intent.getStringExtra(SearchManager.QUERY);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        navController.popBackStack();
+        navController.navigate(R.id.action_global_FirstFragment);
         viewModel.searchForPersonByName(query);
     }
 }
