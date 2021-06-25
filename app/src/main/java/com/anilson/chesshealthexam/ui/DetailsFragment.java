@@ -11,14 +11,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.anilson.chesshealthexam.R;
-import com.anilson.chesshealthexam.databinding.FragmentSecondBinding;
+import com.anilson.chesshealthexam.databinding.FragmentDetailsBinding;
 import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
 
 public class DetailsFragment extends Fragment {
 
     private PersonListViewModel viewModel;
 
-    private FragmentSecondBinding binding;
+    private FragmentDetailsBinding binding;
 
     @Override
     public View onCreateView(
@@ -26,21 +26,13 @@ public class DetailsFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentSecondBinding.inflate(inflater, container, false);
+        binding = FragmentDetailsBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(DetailsFragment.this)
-                        .navigate(R.id.action_DetailsFragment_to_ListFragment);
-            }
-        });
 
         if (getActivity() != null) {
             viewModel = new ViewModelProvider(getActivity()).get(PersonListViewModel.class);
