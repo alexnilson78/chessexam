@@ -16,7 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class PersonListViewModel extends ViewModel {
 
-    private static String TAG = PersonListViewModel.class.getSimpleName();
+    private static final String TAG = PersonListViewModel.class.getSimpleName();
 
     DataRepository dataRepository;
 
@@ -42,6 +42,13 @@ public class PersonListViewModel extends ViewModel {
         dataRepository.addPerson(name)
             .subscribe(person -> {
                 Log.d(TAG, "Finished request");
+            }, Throwable::printStackTrace);
+    }
+
+    public void removePerson(Person person) {
+        dataRepository.removePerson(person)
+            .subscribe(person1 -> {
+                    Log.d(TAG, "Removed " + person1.name);
             }, Throwable::printStackTrace);
     }
 }

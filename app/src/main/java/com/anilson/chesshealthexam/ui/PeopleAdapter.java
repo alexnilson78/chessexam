@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder> {
 
-    private List<Person> dataSet;
+    private final List<Person> dataSet;
 
     public PeopleAdapter(List<Person> dataSet) {
         this.dataSet = dataSet;
@@ -55,5 +55,9 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+
+    public Person getItemAt(int position) {
+        return dataSet.get(position);
     }
 }

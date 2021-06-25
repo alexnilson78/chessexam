@@ -9,11 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import com.anilson.chesshealthexam.R;
 import com.anilson.chesshealthexam.databinding.FragmentListBinding;
+import com.anilson.chesshealthexam.db.entities.Person;
 import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
 
 @AndroidEntryPoint
@@ -43,6 +46,8 @@ public class FirstFragment extends Fragment {
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        setUpSwipeHandler();
+
         if (getActivity() != null) {
             viewModel = new ViewModelProvider(getActivity()).get(PersonListViewModel.class);
             viewModel.getPeople().observe(getViewLifecycleOwner(), people -> {
@@ -57,4 +62,20 @@ public class FirstFragment extends Fragment {
         binding = null;
     }
 
+    private void setUpSwipeHandler() {
+        ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT|ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                Person person = ((PeopleAdapter) binding.recyclerView.getAdapter()).getItemAt(viewHolder.getAdapterPosition());
+                viewModel.removePerson(person);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView);
+    }
 }

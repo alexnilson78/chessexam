@@ -45,10 +45,6 @@ public class DataRepository {
         return persistenceDatabase.personDao().getPeople();
     }
 
-    private void savePerson(Person person) {
-        persistenceDatabase.personDao().insertAll(person);
-    }
-
     public Observable<Person> addPerson(String name) {
         return Observable.zip(ageService.getAge(name),
                 genderService.getGender(name),
@@ -67,5 +63,14 @@ public class DataRepository {
                 }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 
+    }
+
+    public Observable<Person> removePerson(Person person) {
+        return Observable.just(person)
+                .map(person1 -> {
+                    persistenceDatabase.personDao().delete(person1);
+                    return person1;
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }
