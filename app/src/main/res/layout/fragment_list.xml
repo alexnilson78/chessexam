@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.FirstFragment">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
     <TextView
         android:id="@+id/nameLabel"
         android:layout_width="wrap_content"
@@ -30,8 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/nameLabel"
+        app:layout_constraintStart_toStartOf="@id/guideline"
         android:textSize="@dimen/header_text_size"
         android:text="@string/header_details" />
 
@@ -50,6 +56,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/nameLabel"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/filterMaxAge"
         android:visibility="gone"
         tools:visibility="visible"
         android:hint="@string/min_age_hint"
