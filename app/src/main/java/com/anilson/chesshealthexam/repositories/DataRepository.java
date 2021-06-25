@@ -75,12 +75,14 @@ public class DataRepository {
                 genderService.getGender(name),
                 nationalityService.getNationality(name),
                 (Response<AgeResponse> ageResponse, Response<GenderResponse> genderResponse, Response<NationalityResponse> nationalityResponse) -> {
+                    String gender = genderResponse.body().getGender();
+                    String capitalizedGender = gender.substring(0, 1).toUpperCase() + gender.substring(1);
                     Person person = new Person(0,
                             name,
                             ageResponse.body().getAge(),
                             nationalityResponse.body().getCountry().get(0).getCountry_id(),
                             nationalityResponse.body().getCountry().get(0).getProbability(),
-                            genderResponse.body().getGender(),
+                            capitalizedGender,
                             genderResponse.body().getProbability()
                     ); //TODO error handling
                     persistenceDatabase.personDao().insert(person);

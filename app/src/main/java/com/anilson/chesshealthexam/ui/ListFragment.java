@@ -208,7 +208,8 @@ public class ListFragment extends Fragment implements PeopleAdapter.Callback {
 
     private void setUpSeedObserver() {
         viewModel.getSeedDatabase().observe(getViewLifecycleOwner(), booleanEvent -> {
-            if(booleanEvent.getContentIfNotHandledOrReturnNull()) {
+            Boolean value = booleanEvent.getContentIfNotHandledOrReturnNull();
+            if(value != null && value) {
                 preferencesUtil.setFirstLaunch(true);
                 seedDatabase();
             }
