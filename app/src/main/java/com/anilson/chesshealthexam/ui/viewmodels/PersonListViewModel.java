@@ -51,12 +51,7 @@ public class PersonListViewModel extends ViewModel {
     }
 
     public void addPerson(String name) {
-        //TODO error handling
-        dataRepository.addPerson(name)
-                .subscribe(person -> {
-                    Log.d(TAG, "Finished request");
-                    loadPeople();
-                }, Throwable::printStackTrace);
+        dataRepository.addPerson(name);
     }
 
     public void removePerson(Person person) {

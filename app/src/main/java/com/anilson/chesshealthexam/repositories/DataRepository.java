@@ -64,8 +64,8 @@ public class DataRepository {
                 });
     }
 
-    public Observable<Person> addPerson(String name) {
-        return Observable.zip(ageService.getAge(name),
+    public void addPerson(String name) {
+        Observable.zip(ageService.getAge(name),
                 genderService.getGender(name),
                 nationalityService.getNationality(name),
                 (Response<AgeResponse> ageResponse, Response<GenderResponse> genderResponse, Response<NationalityResponse> nationalityResponse) -> {
@@ -77,10 +77,28 @@ public class DataRepository {
                             genderResponse.body().getGender(),
                             genderResponse.body().getProbability()
                     ); //TODO error handling
-                    persistenceDatabase.personDao().insertAll(person);
+                    persistenceDatabase.personDao().insert(person);
                     return person;
                 }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(person -> {
+                    Log.d(TAG, "Finished network requests");
+                    insertPerson(person);
+                }, throwable -> {
+                    //TODO
+                });
+    }
+
+    private void insertPerson(Person person) {
+        persistenceDatabase.personDao().insert(person)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aLong -> {
+                    Log.d(TAG, "Inserted " + person.name);
+                    getAllPeople();
+                }, throwable -> {
+                    //TODO
+                });
     }
 
     public void removePerson(Person person) {

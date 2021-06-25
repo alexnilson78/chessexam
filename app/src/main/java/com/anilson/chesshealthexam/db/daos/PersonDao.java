@@ -14,7 +14,7 @@ import io.reactivex.rxjava3.core.Single;
 @Dao
 public interface PersonDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(Person... people);
+    Single<Long> insert(Person person);
 
     @Delete
     Single<Integer> delete(Person person);
