@@ -6,5 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".ui.DetailsFragment">
 
+    <TextView
+        android:id="@+id/ageLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/age_label"/>
+
+    <TextView
+        android:id="@+id/ageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/ageLabelTextView"
+        app:layout_constraintTop_toBottomOf="@id/ageLabelTextView"
+        tools:text="99"/>
+
+    <TextView
+        android:id="@+id/genderLabelTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/ageLabelTextView"
+        app:layout_constraintTop_toBottomOf="@id/ageTextView"
+        android:text="@string/gender_label"/>
+
+    <TextView
+        android:id="@+id/genderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/ageTextView"
+        app:layout_constraintTop_toBottomOf="@id/genderLabelTextview"
+        tools:text="Male" />
+
+    <TextView
+        android:id="@+id/countryCodeLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/ageLabelTextView"
+        app:layout_constraintTop_toBottomOf="@id/genderTextView"
+        android:text="@string/country_code_label"/>
+
+    <TextView
+        android:id="@+id/countrycodeTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/ageTextView"
+        app:layout_constraintTop_toBottomOf="@id/countryCodeLabelTextView"
+        tools:text="US" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

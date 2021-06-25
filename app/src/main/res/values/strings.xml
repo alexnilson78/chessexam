@@ -24,8 +24,9 @@
     <string name="max_age_hint">Max. Age</string>
     <string name="sort_indicator">Sort Indicator</string>
     <string name="clear_search">Clear Search</string>
-
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-
+    <string name="age_label">Age:</string>
+    <string name="gender_label">Gender:</string>
+    <string name="country_code_label">Country Code:</string>
     <string name="argument_title">title</string>
+    <string name="detail_format">%1$s (%2$s)</string>
 </resources>

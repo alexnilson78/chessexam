@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.anilson.chesshealthexam.R;
 import com.anilson.chesshealthexam.databinding.FragmentDetailsBinding;
 import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
+
+import java.text.NumberFormat;
 
 public class DetailsFragment extends Fragment {
 
@@ -38,6 +39,11 @@ public class DetailsFragment extends Fragment {
             viewModel = new ViewModelProvider(getActivity()).get(PersonListViewModel.class);
             viewModel.getSelectedPerson().observe(getViewLifecycleOwner(), person -> {
                 //TODO set up UI
+                NumberFormat percentFormat = NumberFormat.getPercentInstance();
+                percentFormat.setMinimumFractionDigits(2);
+                binding.ageTextView.setText(String.valueOf(person.age));
+                binding.countrycodeTextview.setText(getString(R.string.detail_format, person.countryCode, percentFormat.format(person.countryProbability)));
+                binding.genderTextView.setText(getString(R.string.detail_format, person.gender, percentFormat.format(person.genderProbability)));
             });
         }
     }
