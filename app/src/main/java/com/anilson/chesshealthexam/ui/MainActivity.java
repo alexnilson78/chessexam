@@ -1,5 +1,7 @@
 package com.anilson.chesshealthexam.ui;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setUpSearchObserver();
+        subscribeToErrorLiveData();
     }
 
     @Override
@@ -68,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_reset) {
             viewModel.removeEveryone();
             return true;
         } else  if (id == R.id.action_search) {
@@ -114,6 +117,15 @@ public class MainActivity extends AppCompatActivity {
                 showSearch = true;
             }
             invalidateOptionsMenu();
+        });
+    }
+
+    private void subscribeToErrorLiveData() {
+        viewModel.getErrorData().observe(this, stringResEvent -> {
+            Integer value = stringResEvent.getContentIfNotHandledOrReturnNull();
+            if(value != null) {
+                Snackbar.make(this, binding.getRoot(), getString(value), Snackbar.LENGTH_SHORT).show();
+            }
         });
     }
 }

@@ -4,6 +4,7 @@ import com.anilson.chesshealthexam.BuildConfig;
 import com.anilson.chesshealthexam.networking.apis.GenderService;
 import com.anilson.chesshealthexam.networking.apis.NationalityService;
 import com.anilson.chesshealthexam.networking.apis.AgeService;
+import com.anilson.chesshealthexam.util.Constants;
 
 import javax.inject.Singleton;
 
@@ -36,7 +37,7 @@ public class NetworkingModule {
     @Provides
     @Singleton
     AgeService provideAgeService(OkHttpClient okHttpClient) {
-        return buildRetrofit("https://api.agify.io/", okHttpClient) //TODO constants
+        return buildRetrofit(Constants.AGE_API, okHttpClient)
                 .build()
                 .create(AgeService.class);
     }
@@ -44,7 +45,7 @@ public class NetworkingModule {
     @Provides
     @Singleton
     GenderService provideGenderService(OkHttpClient okHttpClient) {
-        return buildRetrofit("https://api.genderize.io/", okHttpClient) //TODO constants
+        return buildRetrofit(Constants.GENDER_API, okHttpClient)
                 .build()
                 .create(GenderService.class);
     }
@@ -52,7 +53,7 @@ public class NetworkingModule {
     @Provides
     @Singleton
     NationalityService provideNationalityService(OkHttpClient okHttpClient) {
-        return buildRetrofit("https://api.nationalize.io/", okHttpClient) //TODO constants
+        return buildRetrofit(Constants.COUNTRY_API, okHttpClient)
                 .build()
                 .create(NationalityService.class);
     }

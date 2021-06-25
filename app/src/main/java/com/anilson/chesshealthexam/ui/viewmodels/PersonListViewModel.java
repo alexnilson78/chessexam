@@ -1,5 +1,6 @@
 package com.anilson.chesshealthexam.ui.viewmodels;
 
+import com.anilson.chesshealthexam.R;
 import com.anilson.chesshealthexam.db.entities.Person;
 import com.anilson.chesshealthexam.repositories.DataRepository;
 import com.anilson.chesshealthexam.util.Event;
@@ -34,6 +35,7 @@ public class PersonListViewModel extends ViewModel {
     private final Observer<String> countryCodeObserver;
 
     private final MutableLiveData<Event<Boolean>> reseedDatabase = new MutableLiveData<>();
+    private final MutableLiveData<Event<Integer>> errorData = new MutableLiveData<>();
 
     DataRepository dataRepository;
 
@@ -67,6 +69,10 @@ public class PersonListViewModel extends ViewModel {
         return people;
     }
 
+    public LiveData<Event<Integer>> getErrorData() {
+        return errorData;
+    }
+
     public boolean getIsReversed() {
         return isReversed;
     }
@@ -88,7 +94,11 @@ public class PersonListViewModel extends ViewModel {
     }
 
     public void loadPeople() {
-        dataRepository.getFilteredPeople(searchTerm.getValue(), countryCode.getValue(), minAge.getValue(), maxAge.getValue());
+        dataRepository.getFilteredPeople(searchTerm.getValue(), countryCode.getValue(), minAge.getValue(), maxAge.getValue())
+                .doOnError(throwable -> {
+                    errorData.postValue(new Event<>(R.string.error_database));
+                })
+                .subscribe();
     }
 
     public void addPerson(String name) {
@@ -105,7 +115,7 @@ public class PersonListViewModel extends ViewModel {
                     Log.d(TAG, "Deleted everything");
                     reseedDatabase.postValue(new Event<>(true));
                 }, throwable -> {
-                    //TODO
+                    errorData.postValue(new Event<>(R.string.error_reset));
                 });
     }
 
@@ -115,7 +125,7 @@ public class PersonListViewModel extends ViewModel {
 
     public void setCountryCodeFilter(String code) {
         if (code != null && !code.isEmpty()) {
-            code = "%"+code+"%";
+            code = "%" + code + "%";
         }
         countryCode.postValue(code);
     }
@@ -138,7 +148,7 @@ public class PersonListViewModel extends ViewModel {
 
     public void setSearchName(String searchName) {
         if (searchName != null && !searchName.isEmpty()) {
-            searchName = "%"+searchName+"%";
+            searchName = "%" + searchName + "%";
         }
         searchTerm.postValue(searchName);
     }

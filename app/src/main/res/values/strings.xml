@@ -30,6 +30,9 @@
     <string name="argument_title">title</string>
     <string name="detail_format">%1$s (%2$s)</string>
     <string name="flag">Flag</string>
+    <string name="error_reset">There was an error resetting the database.</string>
+    <string name="error_database">There was an error reading the database.</string>
+
     <string-array name="seed_names">
         <item>Brendan</item>
         <item>Tim</item>

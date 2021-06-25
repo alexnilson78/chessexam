@@ -121,13 +121,11 @@ public class DataRepository {
                 });
     }
 
-    public void getFilteredPeople(String name, String countryCode, Integer low, Integer high) {
-        determineFilterFunction(name, countryCode, low, high)
+    public Single<List<Person>> getFilteredPeople(String name, String countryCode, Integer low, Integer high) {
+        return determineFilterFunction(name, countryCode, low, high)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(people::postValue, throwable -> {
-                    //TODO
-                });
+                .doOnSuccess(people::postValue);
     }
 
     private Single<List<Person>> determineFilterFunction(String name, String countryCode, int low, int high) {
