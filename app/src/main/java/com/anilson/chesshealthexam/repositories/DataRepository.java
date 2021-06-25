@@ -146,7 +146,7 @@ public class DataRepository {
                 });
     }
 
-    public void getFilteredPeople(String name, String countryCode, int low, int high) {
+    public void getFilteredPeople(String name, String countryCode, Integer low, Integer high) {
         determineFilterFunction(name, countryCode, low, high)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
