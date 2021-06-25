@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    private boolean showSearch = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,15 @@ public class MainActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
             handleSearchIntent(getIntent());
         }
+
+        setUpSearchObserver();
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.getItem(0).setVisible(showSearch);
+        menu.getItem(1).setVisible(!showSearch);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -61,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else  if (id == R.id.action_search) {
             onSearchRequested();
+        } else  if (id == R.id.clear_search) {
+            viewModel.setSearchName("");
         }
 
         return super.onOptionsItemSelected(item);
@@ -88,5 +101,16 @@ public class MainActivity extends AppCompatActivity {
         navController.popBackStack();
         navController.navigate(R.id.action_global_FirstFragment);
         viewModel.setSearchName(query);
+    }
+
+    private void setUpSearchObserver() {
+        viewModel.getSearchTerm().observe(this, s -> {
+            if(s != null && !s.isEmpty()) {
+                showSearch = false;
+            } else {
+                showSearch = true;
+            }
+            invalidateOptionsMenu();
+        });
     }
 }

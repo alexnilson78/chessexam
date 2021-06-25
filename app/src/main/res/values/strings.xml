@@ -23,6 +23,7 @@
     <string name="min_age_hint">Min. Age</string>
     <string name="max_age_hint">Max. Age</string>
     <string name="sort_indicator">Sort Indicator</string>
+    <string name="clear_search">Clear Search</string>
 
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
