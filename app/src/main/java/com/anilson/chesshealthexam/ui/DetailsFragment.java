@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.anilson.chesshealthexam.R;
 import com.anilson.chesshealthexam.databinding.FragmentDetailsBinding;
 import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
+import com.anilson.chesshealthexam.util.Constants;
 import com.bumptech.glide.Glide;
 
 import java.text.NumberFormat;
@@ -45,7 +46,11 @@ public class DetailsFragment extends Fragment {
                 NumberFormat percentFormat = NumberFormat.getPercentInstance();
                 percentFormat.setMinimumFractionDigits(2);
                 binding.ageTextView.setText(String.valueOf(person.age));
-                binding.countryCodeTextview.setText(getString(R.string.detail_format, person.countryCode, percentFormat.format(person.countryProbability)));
+                if (Constants.UNKNOWN_COUNTRY.equals(person.countryCode)) {
+                    binding.countryCodeTextview.setText(R.string.detail_unknown);
+                } else {
+                    binding.countryCodeTextview.setText(getString(R.string.detail_format, person.countryCode, percentFormat.format(person.countryProbability)));
+                }
                 binding.genderTextView.setText(getString(R.string.detail_format, person.gender, percentFormat.format(person.genderProbability)));
                 String flagUrl = FLAG_API + person.countryCode + FLAG_ENDPOINT;
                 Glide.with(this).load(flagUrl).into(binding.flagImageView);

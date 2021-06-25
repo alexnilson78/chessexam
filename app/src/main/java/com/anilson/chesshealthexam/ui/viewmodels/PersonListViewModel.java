@@ -16,6 +16,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 @HiltViewModel
 public class PersonListViewModel extends ViewModel {
@@ -34,6 +36,8 @@ public class PersonListViewModel extends ViewModel {
 
     private final MutableLiveData<Event<Boolean>> reseedDatabase = new MutableLiveData<>();
     private final MutableLiveData<Event<Integer>> errorData = new MutableLiveData<>();
+
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     DataRepository dataRepository;
 
@@ -56,6 +60,7 @@ public class PersonListViewModel extends ViewModel {
         maxAge.removeObserver(maxAgeObserver);
         searchTerm.removeObserver(searchObserver);
         countryCode.removeObserver(countryCodeObserver);
+        compositeDisposable.clear();
         super.onCleared();
     }
 
@@ -92,34 +97,36 @@ public class PersonListViewModel extends ViewModel {
     }
 
     public void loadPeople() {
-        dataRepository.getFilteredPeople(searchTerm.getValue(), countryCode.getValue(), minAge.getValue(), maxAge.getValue())
+        compositeDisposable.add(dataRepository.getFilteredPeople(searchTerm.getValue(), countryCode.getValue(), minAge.getValue(), maxAge.getValue())
                 .doOnError(throwable -> errorData.postValue(new Event<>(R.string.error_database)))
-                .subscribe();
+                .subscribe());
     }
 
     public void addPerson(String name) {
-        dataRepository.retrievePerson(name)
-                .subscribe(this::insertPerson, throwable -> {
-                    //TODO check error codes I guess?
-                });
+        compositeDisposable.add(dataRepository.retrievePerson(name)
+                .subscribe(this::insertPerson,
+                        throwable -> {
+                    throwable.printStackTrace();
+                    errorData.postValue(new Event<>(R.string.errpr_network));
+                        }));
     }
 
     private void insertPerson(Person person) {
-        dataRepository.insertPerson(person)
+        compositeDisposable.add(dataRepository.insertPerson(person)
                 .subscribe(aLong -> loadPeople(),
-                        throwable -> errorData.postValue(new Event<>(R.string.error_insert)));
+                        throwable -> errorData.postValue(new Event<>(R.string.error_insert))));
     }
 
     public void removePerson(Person person) {
-        dataRepository.removePerson(person)
+        compositeDisposable.add(dataRepository.removePerson(person)
                 .subscribe(integer -> loadPeople(),
-                        throwable -> errorData.postValue(new Event<>(R.string.error_delete)));
+                        throwable -> errorData.postValue(new Event<>(R.string.error_delete))));
     }
 
     public void removeEveryone() {
-        dataRepository.deleteAllPeople()
+        compositeDisposable.add(dataRepository.deleteAllPeople()
                 .subscribe(() -> reseedDatabase.postValue(new Event<>(true))
-                        , throwable -> errorData.postValue(new Event<>(R.string.error_reset)));
+                        , throwable -> errorData.postValue(new Event<>(R.string.error_reset))));
     }
 
     public LiveData<Event<Boolean>> getSeedDatabase() {

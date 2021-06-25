@@ -6,8 +6,10 @@ import com.anilson.chesshealthexam.networking.apis.AgeService;
 import com.anilson.chesshealthexam.networking.apis.GenderService;
 import com.anilson.chesshealthexam.networking.apis.NationalityService;
 import com.anilson.chesshealthexam.networking.models.AgeResponse;
+import com.anilson.chesshealthexam.networking.models.CountryResponse;
 import com.anilson.chesshealthexam.networking.models.GenderResponse;
 import com.anilson.chesshealthexam.networking.models.NationalityResponse;
+import com.anilson.chesshealthexam.util.Constants;
 
 import android.util.Log;
 
@@ -69,11 +71,21 @@ public class DataRepository {
                 (Response<AgeResponse> ageResponse, Response<GenderResponse> genderResponse, Response<NationalityResponse> nationalityResponse) -> {
                     String gender = genderResponse.body().getGender();
                     String capitalizedGender = gender.substring(0, 1).toUpperCase() + gender.substring(1);
+                    List<CountryResponse> countryResponses = nationalityResponse.body().getCountry();
+                    String countryId;
+                    double countryProbability;
+                    if (countryResponses.size() < 1) {
+                        countryId = Constants.UNKNOWN_COUNTRY;
+                        countryProbability = -1;
+                    } else {
+                        countryId = countryResponses.get(0).getCountry_id();
+                        countryProbability = countryResponses.get(0).getProbability();
+                    }
                     Person person = new Person(0,
                             name,
                             ageResponse.body().getAge(),
-                            nationalityResponse.body().getCountry().get(0).getCountry_id(),
-                            nationalityResponse.body().getCountry().get(0).getProbability(),
+                            countryId,
+                            countryProbability,
                             capitalizedGender,
                             genderResponse.body().getProbability()
                     ); //TODO error handling

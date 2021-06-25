@@ -3,6 +3,7 @@ package com.anilson.chesshealthexam.ui;
 import com.anilson.chesshealthexam.R;
 import com.anilson.chesshealthexam.databinding.ItemPersonBinding;
 import com.anilson.chesshealthexam.db.entities.Person;
+import com.anilson.chesshealthexam.util.Constants;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -42,7 +43,11 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
         holder.binding.nameTextView.setText(person.name);
         holder.binding.ageTextView.setText(getString(holder, R.string.age_format, person.age));
         holder.binding.genderTextView.setText(getString(holder, R.string.gender_format, person.gender, percentFormat.format(person.genderProbability)));
-        holder.binding.nationalityTextView.setText(getString(holder, R.string.country_code_format, person.countryCode, percentFormat.format(person.countryProbability)));
+        if (person.countryCode.equals(Constants.UNKNOWN_COUNTRY)) {
+            holder.binding.nationalityTextView.setText(getString(holder, R.string.country_code_unknown));
+        } else {
+            holder.binding.nationalityTextView.setText(getString(holder, R.string.country_code_format, person.countryCode, percentFormat.format(person.countryProbability)));
+        }
         holder.binding.getRoot().setOnClickListener(v -> {
             callback.onListItemClick(person);
         });
