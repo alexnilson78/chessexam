@@ -113,39 +113,6 @@ public class DataRepository {
                 });
     }
 
-    public void searchForPersonByName(String name) {
-        persistenceDatabase.personDao().searchPeopleByName("%" + name + "%")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(peopleUpdate -> {
-                    people.postValue(peopleUpdate);
-                }, throwable -> {
-                    //TODO
-                });
-    }
-
-    public void searchForPersonByCountryCode(String countryCode) {
-        persistenceDatabase.personDao().searchPeopleByCountryCode("%" + countryCode + "%")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(peopleUpdate -> {
-                    people.postValue(peopleUpdate);
-                }, throwable -> {
-                    //TODO
-                });
-    }
-
-    public void searchForPersonByAgeRange(int low, int high) {
-        persistenceDatabase.personDao().searchPeopleBetweenAges(low, high)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(peopleUpdate -> {
-                    people.postValue(peopleUpdate);
-                }, throwable -> {
-                    //TODO
-                });
-    }
-
     public void getFilteredPeople(String name, String countryCode, Integer low, Integer high) {
         determineFilterFunction(name, countryCode, low, high)
                 .subscribeOn(Schedulers.io())

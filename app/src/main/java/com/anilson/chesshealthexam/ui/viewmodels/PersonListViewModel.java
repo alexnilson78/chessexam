@@ -94,18 +94,6 @@ public class PersonListViewModel extends ViewModel {
         dataRepository.removePerson(person);
     }
 
-    public void searchForPersonByName(String name) {
-        dataRepository.searchForPersonByName(name);
-    }
-
-    public void searchForPersonByCountryCode(String countryCode) {
-        dataRepository.searchForPersonByCountryCode(countryCode);
-    }
-
-    public void searchForPersonInAgeRange(int low, int high) {
-        dataRepository.searchForPersonByAgeRange(low, high);
-    }
-
     public void setCountryCodeFilter(String code) {
         if (code != null && !code.isEmpty()) {
             code = "%"+code+"%";

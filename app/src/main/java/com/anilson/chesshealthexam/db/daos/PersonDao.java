@@ -22,12 +22,6 @@ public interface PersonDao {
     @Query("SELECT * FROM person ORDER BY name ASC")
     Single<List<Person>> getPeople();
 
-    @Query("SELECT * FROM person WHERE name LIKE :name ORDER BY name ASC")
-    Single<List<Person>> searchPeopleByName(String name);
-
-    @Query("SELECT * FROM person WHERE countryCode LIKE :countryCode")
-    Single<List<Person>> searchPeopleByCountryCode(String countryCode);
-
     @Query("SELECT * FROM person WHERE age BETWEEN :low AND :high ORDER BY name ASC")
     Single<List<Person>> searchPeopleBetweenAges(int low, int high);
 
