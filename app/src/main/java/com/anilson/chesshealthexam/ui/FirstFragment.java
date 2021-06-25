@@ -19,11 +19,14 @@ import com.anilson.chesshealthexam.databinding.FragmentListBinding;
 import com.anilson.chesshealthexam.db.entities.Person;
 import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
 
+import java.util.Collections;
+
 @AndroidEntryPoint
 public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
 
     private PersonListViewModel viewModel;
     private FragmentListBinding binding;
+    private boolean isListingReversed = false;
 
     @Override
     public View onCreateView(
@@ -49,7 +52,14 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
 
         if (getActivity() != null) {
             viewModel = new ViewModelProvider(getActivity()).get(PersonListViewModel.class);
+            viewModel.getIsReversed().observe(getViewLifecycleOwner(), isReversed -> {
+                isListingReversed = isReversed;
+                viewModel.loadPeople(); //TODO or redo search
+            });
             viewModel.getPeople().observe(getViewLifecycleOwner(), people -> {
+                if(isListingReversed) {
+                    Collections.reverse(people);
+                }
                 binding.recyclerView.swapAdapter(new PeopleAdapter(people, FirstFragment.this), false);
             });
         }
