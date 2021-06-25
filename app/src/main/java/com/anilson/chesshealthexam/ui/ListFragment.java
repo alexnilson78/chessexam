@@ -20,14 +20,22 @@ import com.anilson.chesshealthexam.R;
 import com.anilson.chesshealthexam.databinding.FragmentListBinding;
 import com.anilson.chesshealthexam.db.entities.Person;
 import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
+import com.anilson.chesshealthexam.util.PreferencesUtil;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
+
+import javax.inject.Inject;
 
 @AndroidEntryPoint
 public class ListFragment extends Fragment implements PeopleAdapter.Callback {
 
     private PersonListViewModel viewModel;
     private FragmentListBinding binding;
+
+    @Inject
+    PreferencesUtil preferencesUtil;
 
     @Override
     public View onCreateView(
@@ -54,6 +62,9 @@ public class ListFragment extends Fragment implements PeopleAdapter.Callback {
         setUpFilterButton();
         setUpSortIndicator();
         setFilterTextWatchers();
+        seedDatabase();
+        addScollListener();
+        setUpSeedObserver();
     }
 
     @Override
@@ -180,6 +191,39 @@ public class ListFragment extends Fragment implements PeopleAdapter.Callback {
             rotation = 180;
         }
         binding.sortIndicator.setRotation(rotation);
+    }
+
+    private void seedDatabase() {
+        if (preferencesUtil.isFirstLaunch()) {
+            String[] names = getResources().getStringArray(R.array.seed_names);
+            for(int i = 0; i < names.length; i++) {
+                viewModel.addPerson(names[i]);
+            }
+            preferencesUtil.setFirstLaunch(false);
+        }
+    }
+
+    private void setUpSeedObserver() {
+        viewModel.getSeedDatabase().observe(getViewLifecycleOwner(), booleanEvent -> {
+            if(booleanEvent.getContentIfNotHandledOrReturnNull()) {
+                preferencesUtil.setFirstLaunch(true);
+                seedDatabase();
+            }
+        });
+    }
+
+    private void addScollListener() {
+        binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull @NotNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0 && binding.addButton.getVisibility() == View.VISIBLE) {
+                    binding.addButton.hide();
+                } else if (dy < 0 && binding.addButton.getVisibility() != View.VISIBLE) {
+                    binding.addButton.show();
+                }
+            }
+        });
     }
 
     @Override

@@ -69,11 +69,14 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            viewModel.removeEveryone();
             return true;
         } else  if (id == R.id.action_search) {
             onSearchRequested();
+            return true;
         } else  if (id == R.id.clear_search) {
             viewModel.setSearchName("");
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

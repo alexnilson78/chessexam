@@ -19,6 +19,8 @@ import javax.inject.Singleton;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -47,7 +49,7 @@ public class DataRepository {
         this.persistenceDatabase = persistenceDatabase;
     }
 
-    private MutableLiveData<List<Person>> people = new MutableLiveData<>();
+    private final MutableLiveData<List<Person>> people = new MutableLiveData<>();
 
     public LiveData<List<Person>> getPeople() {
         return people;
@@ -57,11 +59,15 @@ public class DataRepository {
         persistenceDatabase.personDao().getPeople()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(peopleUpdate -> {
-                    people.postValue(peopleUpdate);
-                }, throwable -> {
+                .subscribe(people::postValue, throwable -> {
                     throwable.printStackTrace();
                 });
+    }
+
+    public Completable deleteAllPeople() {
+        return Completable.fromAction(() -> persistenceDatabase.personDao().deleteAll())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public void addPerson(String name) {
@@ -117,9 +123,7 @@ public class DataRepository {
         determineFilterFunction(name, countryCode, low, high)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe( peopleUpdate -> {
-                    people.postValue(peopleUpdate);
-                }, throwable -> {
+                .subscribe(people::postValue, throwable -> {
                     //TODO
                 });
     }

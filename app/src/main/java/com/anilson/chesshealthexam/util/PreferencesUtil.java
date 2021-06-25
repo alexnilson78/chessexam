@@ -19,7 +19,7 @@ public class PreferencesUtil {
         return sharedPreferences.getBoolean(FIRST_LAUNCH_KEY, true);
     }
 
-    public void setFirstLaunch() {
-        sharedPreferences.edit().putBoolean(FIRST_LAUNCH_KEY, false).apply();
+    public void setFirstLaunch(boolean isFirstLaunch) {
+        sharedPreferences.edit().putBoolean(FIRST_LAUNCH_KEY, isFirstLaunch).apply();
     }
 }

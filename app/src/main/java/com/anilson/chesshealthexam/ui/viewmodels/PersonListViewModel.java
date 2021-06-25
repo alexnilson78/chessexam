@@ -2,6 +2,9 @@ package com.anilson.chesshealthexam.ui.viewmodels;
 
 import com.anilson.chesshealthexam.db.entities.Person;
 import com.anilson.chesshealthexam.repositories.DataRepository;
+import com.anilson.chesshealthexam.util.Event;
+
+import android.util.Log;
 
 import java.util.List;
 
@@ -29,6 +32,8 @@ public class PersonListViewModel extends ViewModel {
     private final Observer<String> searchObserver;
     private final Observer<Integer> maxAgeObserver;
     private final Observer<String> countryCodeObserver;
+
+    private final MutableLiveData<Event<Boolean>> reseedDatabase = new MutableLiveData<>();
 
     DataRepository dataRepository;
 
@@ -92,6 +97,20 @@ public class PersonListViewModel extends ViewModel {
 
     public void removePerson(Person person) {
         dataRepository.removePerson(person);
+    }
+
+    public void removeEveryone() {
+        dataRepository.deleteAllPeople()
+                .subscribe(() -> {
+                    Log.d(TAG, "Deleted everything");
+                    reseedDatabase.postValue(new Event<>(true));
+                }, throwable -> {
+                    //TODO
+                });
+    }
+
+    public LiveData<Event<Boolean>> getSeedDatabase() {
+        return reseedDatabase;
     }
 
     public void setCountryCodeFilter(String code) {

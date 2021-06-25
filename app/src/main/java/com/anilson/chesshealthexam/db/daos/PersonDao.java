@@ -19,6 +19,9 @@ public interface PersonDao {
     @Delete
     Single<Integer> delete(Person person);
 
+    @Query("DELETE FROM person")
+    void deleteAll();
+
     @Query("SELECT * FROM person ORDER BY name ASC")
     Single<List<Person>> getPeople();
 
