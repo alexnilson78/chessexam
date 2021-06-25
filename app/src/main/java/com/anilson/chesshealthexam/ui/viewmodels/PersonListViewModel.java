@@ -10,6 +10,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
@@ -25,12 +26,22 @@ public class PersonListViewModel extends ViewModel {
         this.dataRepository = dataRepository;
     }
 
+    private final MutableLiveData<Person> selectedPerson = new MutableLiveData<>();
+
     private LiveData<List<Person>> people;
     public LiveData<List<Person>> getPeople() {
         if (people == null) {
             loadPeople();
         }
         return people;
+    }
+
+    public void selectPerson(Person person) {
+        selectedPerson.setValue(person);
+    }
+
+    public LiveData<Person> getSelectedPerson() {
+        return selectedPerson;
     }
 
     private void loadPeople() {

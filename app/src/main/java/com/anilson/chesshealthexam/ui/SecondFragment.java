@@ -1,18 +1,23 @@
 package com.anilson.chesshealthexam.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.anilson.chesshealthexam.R;
 import com.anilson.chesshealthexam.databinding.FragmentSecondBinding;
+import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
 
 public class SecondFragment extends Fragment {
+
+    private PersonListViewModel viewModel;
 
     private FragmentSecondBinding binding;
 
@@ -37,6 +42,13 @@ public class SecondFragment extends Fragment {
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });
+
+        if (getActivity() != null) {
+            viewModel = new ViewModelProvider(getActivity()).get(PersonListViewModel.class);
+            viewModel.getSelectedPerson().observe(getViewLifecycleOwner(), person -> {
+                //TODO set up UI
+            });
+        }
     }
 
     @Override

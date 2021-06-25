@@ -40,7 +40,6 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
         super.onViewCreated(view, savedInstanceState);
 
         binding.addButton.setOnClickListener(v -> {
-            //TODO wire up adding new people
             NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_addPersonDialog);
         });
 
@@ -83,7 +82,7 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
     public void onListItemClick(Person person) {
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.argument_title), person.name);
-        bundle.putInt(getString(R.string.argument_uid), person.uid);
+        viewModel.selectPerson(person);
         NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
     }
 }

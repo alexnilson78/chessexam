@@ -14,5 +14,4 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string name="argument_title">title</string>
-    <string name="argument_uid">uid</string>
 </resources>
