@@ -64,7 +64,7 @@ public class ListFragment extends Fragment implements PeopleAdapter.Callback {
         setUpSortIndicator();
         setFilterTextWatchers();
         seedDatabase();
-        addScollListener();
+        addScrollListener();
         setUpSeedObserver();
     }
 
@@ -216,7 +216,7 @@ public class ListFragment extends Fragment implements PeopleAdapter.Callback {
         });
     }
 
-    private void addScollListener() {
+    private void addScrollListener() {
         binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull @NotNull RecyclerView recyclerView, int dx, int dy) {
