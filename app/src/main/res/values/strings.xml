@@ -12,6 +12,9 @@
     <string name="add_person_error_hint">You must enter a name</string>
     <string name="search">Search</string>
     <string name="search_hint">Search People</string>
+    <string name="header_name">Name</string>
+    <string name="header_details">Details</string>
+    <string name="filter_people">Filter People</string>
 
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
