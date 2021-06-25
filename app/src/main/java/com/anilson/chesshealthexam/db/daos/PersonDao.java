@@ -22,9 +22,6 @@ public interface PersonDao {
     @Query("DELETE FROM person")
     void deleteAll();
 
-    @Query("SELECT * FROM person ORDER BY name ASC")
-    Single<List<Person>> getPeople();
-
     @Query("SELECT * FROM person WHERE age BETWEEN :low AND :high ORDER BY name ASC")
     Single<List<Person>> searchPeopleBetweenAges(int low, int high);
 

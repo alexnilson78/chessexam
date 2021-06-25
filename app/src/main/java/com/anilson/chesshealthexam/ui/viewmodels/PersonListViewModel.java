@@ -20,8 +20,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class PersonListViewModel extends ViewModel {
 
-    private static final String TAG = PersonListViewModel.class.getSimpleName();
-
     private final MutableLiveData<Person> selectedPerson = new MutableLiveData<>();
     private final MutableLiveData<String> searchTerm = new MutableLiveData<>("");
     private final MutableLiveData<Integer> minAge = new MutableLiveData<>(0);
@@ -95,28 +93,33 @@ public class PersonListViewModel extends ViewModel {
 
     public void loadPeople() {
         dataRepository.getFilteredPeople(searchTerm.getValue(), countryCode.getValue(), minAge.getValue(), maxAge.getValue())
-                .doOnError(throwable -> {
-                    errorData.postValue(new Event<>(R.string.error_database));
-                })
+                .doOnError(throwable -> errorData.postValue(new Event<>(R.string.error_database)))
                 .subscribe();
     }
 
     public void addPerson(String name) {
-        dataRepository.addPerson(name);
+        dataRepository.retrievePerson(name)
+                .subscribe(this::insertPerson, throwable -> {
+                    //TODO check error codes I guess?
+                });
+    }
+
+    private void insertPerson(Person person) {
+        dataRepository.insertPerson(person)
+                .subscribe(aLong -> loadPeople(),
+                        throwable -> errorData.postValue(new Event<>(R.string.error_insert)));
     }
 
     public void removePerson(Person person) {
-        dataRepository.removePerson(person);
+        dataRepository.removePerson(person)
+                .subscribe(integer -> loadPeople(),
+                        throwable -> errorData.postValue(new Event<>(R.string.error_delete)));
     }
 
     public void removeEveryone() {
         dataRepository.deleteAllPeople()
-                .subscribe(() -> {
-                    Log.d(TAG, "Deleted everything");
-                    reseedDatabase.postValue(new Event<>(true));
-                }, throwable -> {
-                    errorData.postValue(new Event<>(R.string.error_reset));
-                });
+                .subscribe(() -> reseedDatabase.postValue(new Event<>(true))
+                        , throwable -> errorData.postValue(new Event<>(R.string.error_reset)));
     }
 
     public LiveData<Event<Boolean>> getSeedDatabase() {

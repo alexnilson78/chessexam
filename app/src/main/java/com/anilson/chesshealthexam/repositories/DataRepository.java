@@ -55,23 +55,15 @@ public class DataRepository {
         return people;
     }
 
-    private void getAllPeople() {
-        persistenceDatabase.personDao().getPeople()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(people::postValue, throwable -> {
-                    throwable.printStackTrace();
-                });
-    }
-
     public Completable deleteAllPeople() {
         return Completable.fromAction(() -> persistenceDatabase.personDao().deleteAll())
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete(() -> Log.d(TAG, "Deleted everything"));
     }
 
-    public void addPerson(String name) {
-        Observable.zip(ageService.getAge(name),
+    public Observable<Person> retrievePerson(String name) {
+        return Observable.zip(ageService.getAge(name),
                 genderService.getGender(name),
                 nationalityService.getNationality(name),
                 (Response<AgeResponse> ageResponse, Response<GenderResponse> genderResponse, Response<NationalityResponse> nationalityResponse) -> {
@@ -89,35 +81,26 @@ public class DataRepository {
                     return person;
                 }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(person -> {
+                .doOnNext(person -> {
                     Log.d(TAG, "Finished network requests");
-                    insertPerson(person);
-                }, throwable -> {
-                    //TODO
                 });
     }
 
-    private void insertPerson(Person person) {
-        persistenceDatabase.personDao().insert(person)
+    public Single<Long> insertPerson(Person person) {
+        return persistenceDatabase.personDao().insert(person)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> {
+                .doOnSuccess(aLong -> {
                     Log.d(TAG, "Inserted " + person.name);
-                    getAllPeople();
-                }, throwable -> {
-                    //TODO
                 });
     }
 
-    public void removePerson(Person person) {
-        persistenceDatabase.personDao().delete(person)
+    public Single<Integer> removePerson(Person person) {
+        return persistenceDatabase.personDao().delete(person)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(i -> {
+                .doOnSuccess(integer -> {
                     Log.d(TAG, "Deleted " + person.name);
-                    getAllPeople();
-                }, throwable -> {
-                    //TODO
                 });
     }
 

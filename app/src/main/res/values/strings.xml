@@ -32,6 +32,8 @@
     <string name="flag">Flag</string>
     <string name="error_reset">There was an error resetting the database.</string>
     <string name="error_database">There was an error reading the database.</string>
+    <string name="error_delete">There was an error deleting a record from the database.</string>
+    <string name="error_insert">There was an error inserting a record in the database.</string>
 
     <string-array name="seed_names">
         <item>Brendan</item>
