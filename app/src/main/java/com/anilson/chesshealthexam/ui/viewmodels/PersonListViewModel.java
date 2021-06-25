@@ -3,6 +3,8 @@ package com.anilson.chesshealthexam.ui.viewmodels;
 import com.anilson.chesshealthexam.db.entities.Person;
 import com.anilson.chesshealthexam.repositories.DataRepository;
 
+import android.util.Log;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,6 +15,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class PersonListViewModel extends ViewModel {
+
+    private static String TAG = PersonListViewModel.class.getSimpleName();
 
     DataRepository dataRepository;
 
@@ -30,14 +34,14 @@ public class PersonListViewModel extends ViewModel {
     }
 
     private void loadPeople() {
-        people = dataRepository.getListOfPeople();
+        people = dataRepository.getPeople();
     }
 
     public void getPerson(String name) {
         //TODO error handling
         dataRepository.getPerson(name)
             .subscribe(person -> {
-                dataRepository.savePerson(person);
+                Log.d(TAG, "Finished request");
             }, Throwable::printStackTrace);
     }
 }

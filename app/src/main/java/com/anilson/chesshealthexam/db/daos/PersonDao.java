@@ -8,12 +8,13 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
 @Dao
 public interface PersonDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Person... people);
 
     @Update
@@ -23,5 +24,5 @@ public interface PersonDao {
     void delete(Person person);
 
     @Query("SELECT * FROM person ORDER BY name DESC")
-    public LiveData<List<Person>> getPeople();
+    LiveData<List<Person>> getPeople();
 }

@@ -41,11 +41,11 @@ public class DataRepository {
         this.persistenceDatabase = persistenceDatabase;
     }
 
-    public LiveData<List<Person>> getListOfPeople() {
+    public LiveData<List<Person>> getPeople() {
         return persistenceDatabase.personDao().getPeople();
     }
 
-    public void savePerson(Person person) {
+    private void savePerson(Person person) {
         persistenceDatabase.personDao().insertAll(person);
     }
 
@@ -61,7 +61,7 @@ public class DataRepository {
                             nationalityResponse.body().getCountry().get(0).getProbability(),
                             genderResponse.body().getGender(),
                             genderResponse.body().getProbability()
-                    ); //TODO error handling, db insert
+                    ); //TODO error handling
                     persistenceDatabase.personDao().insertAll(person);
                     return person;
                 }).subscribeOn(Schedulers.io())
