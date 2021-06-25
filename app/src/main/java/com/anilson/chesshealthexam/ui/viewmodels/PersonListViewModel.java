@@ -73,4 +73,8 @@ public class PersonListViewModel extends ViewModel {
     public void searchForPersonByCountryCode(String countryCode) {
         dataRepository.searchForPersonByCountryCode(countryCode);
     }
+
+    public void searchForPersonInAgeRange(int low, int high) {
+        dataRepository.searchForPersonByAgeRange(low, high);
+    }
 }

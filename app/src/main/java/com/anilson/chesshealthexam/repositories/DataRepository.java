@@ -133,4 +133,15 @@ public class DataRepository {
                     //TODO
                 });
     }
+
+    public void searchForPersonByAgeRange(int low, int high) {
+        persistenceDatabase.personDao().searchPeopleBetweenAges(low, high)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(peopleUpdate -> {
+                    people.postValue(peopleUpdate);
+                }, throwable -> {
+                    //TODO
+                });
+    }
 }

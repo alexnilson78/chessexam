@@ -27,4 +27,7 @@ public interface PersonDao {
 
     @Query("SELECT * FROM person WHERE countryCode LIKE :countryCode")
     Single<List<Person>> searchPeopleByCountryCode(String countryCode);
+
+    @Query("SELECT * FROM person WHERE age BETWEEN :low AND :high")
+    Single<List<Person>> searchPeopleBetweenAges(int low, int high);
 }
