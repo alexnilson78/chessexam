@@ -3,19 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/ListFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.anilson.chesshealthexam.ui.FirstFragment"
-        android:label="@string/first_fragment_label"
+        android:id="@+id/ListFragment"
+        android:name="com.anilson.chesshealthexam.ui.ListFragment"
+        android:label="@string/list_fragment_label"
         tools:layout="@layout/fragment_list">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            android:id="@+id/action_ListFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
         <action
-            android:id="@+id/action_FirstFragment_to_addPersonDialog"
+            android:id="@+id/action_ListFragment_to_addPersonDialog"
             app:destination="@id/addPersonDialog" />
     </fragment>
     <fragment
@@ -29,8 +29,8 @@
             app:argType="string" />
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_SecondFragment_to_ListFragment"
+            app:destination="@id/ListFragment" />
     </fragment>
     <dialog
         android:id="@+id/addPersonDialog"
@@ -38,6 +38,6 @@
         android:label="@string/add_person" />
 
     <action
-        android:id="@+id/action_global_FirstFragment"
-        app:destination="@id/FirstFragment" />
+        android:id="@+id/action_global_ListFragment"
+        app:destination="@id/ListFragment" />
 </navigation>

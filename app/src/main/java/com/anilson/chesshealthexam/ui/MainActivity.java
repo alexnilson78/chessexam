@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         String query = intent.getStringExtra(SearchManager.QUERY);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         navController.popBackStack();
-        navController.navigate(R.id.action_global_FirstFragment);
+        navController.navigate(R.id.action_global_ListFragment);
         viewModel.setSearchName(query);
     }
 

@@ -3,7 +3,6 @@ package com.anilson.chesshealthexam.ui;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,7 @@ import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
 import java.util.Collections;
 
 @AndroidEntryPoint
-public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
+public class ListFragment extends Fragment implements PeopleAdapter.Callback {
 
     private PersonListViewModel viewModel;
     private FragmentListBinding binding;
@@ -45,7 +44,7 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
         super.onViewCreated(view, savedInstanceState);
 
         binding.addButton.setOnClickListener(v -> {
-            NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_addPersonDialog);
+            NavHostFragment.findNavController(ListFragment.this).navigate(R.id.action_ListFragment_to_addPersonDialog);
         });
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -87,7 +86,7 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
                 if(viewModel.getIsReversed()) {
                     Collections.reverse(people);
                 }
-                binding.recyclerView.swapAdapter(new PeopleAdapter(people, FirstFragment.this), false);
+                binding.recyclerView.swapAdapter(new PeopleAdapter(people, ListFragment.this), false);
             });
         }
     }
@@ -188,6 +187,6 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.argument_title), person.name);
         viewModel.selectPerson(person);
-        NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
+        NavHostFragment.findNavController(ListFragment.this).navigate(R.id.action_ListFragment_to_SecondFragment, bundle);
     }
 }
