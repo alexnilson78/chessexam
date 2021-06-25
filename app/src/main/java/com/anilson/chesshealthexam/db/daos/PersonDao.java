@@ -23,5 +23,8 @@ public interface PersonDao {
     Single<List<Person>> getPeople();
 
     @Query("SELECT * FROM person WHERE name LIKE :name")
-    Single<List<Person>> searchPeople(String name);
+    Single<List<Person>> searchPeopleByName(String name);
+
+    @Query("SELECT * FROM person WHERE countryCode LIKE :countryCode")
+    Single<List<Person>> searchPeopleByCountryCode(String countryCode);
 }

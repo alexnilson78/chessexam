@@ -3,8 +3,6 @@ package com.anilson.chesshealthexam.ui.viewmodels;
 import com.anilson.chesshealthexam.db.entities.Person;
 import com.anilson.chesshealthexam.repositories.DataRepository;
 
-import android.util.Log;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -68,7 +66,11 @@ public class PersonListViewModel extends ViewModel {
         dataRepository.removePerson(person);
     }
 
-    public void searchForPerson(String name) {
-        dataRepository.searchForPerson(name);
+    public void searchForPersonByName(String name) {
+        dataRepository.searchForPersonByName(name);
+    }
+
+    public void searchForPersonByCountryCode(String countryCode) {
+        dataRepository.searchForPersonByCountryCode(countryCode);
     }
 }

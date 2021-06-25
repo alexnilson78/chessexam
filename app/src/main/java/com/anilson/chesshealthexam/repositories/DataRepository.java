@@ -8,7 +8,6 @@ import com.anilson.chesshealthexam.networking.apis.NationalityService;
 import com.anilson.chesshealthexam.networking.models.AgeResponse;
 import com.anilson.chesshealthexam.networking.models.GenderResponse;
 import com.anilson.chesshealthexam.networking.models.NationalityResponse;
-import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
 
 import android.util.Log;
 
@@ -113,8 +112,19 @@ public class DataRepository {
                 });
     }
 
-    public void searchForPerson(String name) {
-        persistenceDatabase.personDao().searchPeople("%"+name+"%")
+    public void searchForPersonByName(String name) {
+        persistenceDatabase.personDao().searchPeopleByName("%" + name + "%")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(peopleUpdate -> {
+                    people.postValue(peopleUpdate);
+                }, throwable -> {
+                    //TODO
+                });
+    }
+
+    public void searchForPersonByCountryCode(String countryCode) {
+        persistenceDatabase.personDao().searchPeopleByCountryCode("%" + countryCode + "%")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(peopleUpdate -> {
