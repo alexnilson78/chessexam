@@ -111,7 +111,6 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
         binding.countryCodeFilter.setText("");
         binding.filterMinAge.setText("");
         binding.filterMaxAge.setText("");
-        //TODO clear filtering
     }
 
     private void setFilterTextWatchers() {
@@ -123,8 +122,6 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //TODO
-                Log.d("Alex", "county code: " + s);
                 viewModel.setCountryCodeFilter(s.toString());
             }
 
@@ -142,8 +139,6 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //TODO
-                Log.d("Alex", "min age: " + s);
                 viewModel.setMinAgeFilter(s.toString());
             }
 
@@ -161,8 +156,6 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //TODO
-                Log.d("Alex", "max age: " + s);
                 viewModel.setMaxAgeFilter(s.toString());
             }
 
