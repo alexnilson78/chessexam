@@ -29,8 +29,10 @@ public class PersonListViewModel extends ViewModel {
     private final MutableLiveData<Person> selectedPerson = new MutableLiveData<>();
 
     private LiveData<List<Person>> people;
+
     public LiveData<List<Person>> getPeople() {
         if (people == null) {
+            people = dataRepository.getPeople();
             loadPeople();
         }
         return people;
@@ -44,22 +46,24 @@ public class PersonListViewModel extends ViewModel {
         return selectedPerson;
     }
 
-    private void loadPeople() {
-        people = dataRepository.getPeople();
+    public void loadPeople() {
+        dataRepository.getAllPeople();
     }
 
     public void addPerson(String name) {
         //TODO error handling
         dataRepository.addPerson(name)
-            .subscribe(person -> {
-                Log.d(TAG, "Finished request");
-            }, Throwable::printStackTrace);
+                .subscribe(person -> {
+                    Log.d(TAG, "Finished request");
+                    loadPeople();
+                }, Throwable::printStackTrace);
     }
 
     public void removePerson(Person person) {
         dataRepository.removePerson(person)
-            .subscribe(person1 -> {
+                .subscribe(person1 -> {
                     Log.d(TAG, "Removed " + person1.name);
-            }, Throwable::printStackTrace);
+                    loadPeople();
+                }, Throwable::printStackTrace);
     }
 }

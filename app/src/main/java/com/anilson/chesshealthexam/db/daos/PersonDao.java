@@ -4,13 +4,13 @@ import com.anilson.chesshealthexam.db.entities.Person;
 
 import java.util.List;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
+import io.reactivex.rxjava3.core.Single;
 
 @Dao
 public interface PersonDao {
@@ -24,5 +24,5 @@ public interface PersonDao {
     void delete(Person person);
 
     @Query("SELECT * FROM person ORDER BY name ASC")
-    LiveData<List<Person>> getPeople();
+    Single<List<Person>> getPeople();
 }

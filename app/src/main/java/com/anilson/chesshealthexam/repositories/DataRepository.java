@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -41,8 +42,21 @@ public class DataRepository {
         this.persistenceDatabase = persistenceDatabase;
     }
 
+    private MutableLiveData<List<Person>> people = new MutableLiveData<>();
+
     public LiveData<List<Person>> getPeople() {
-        return persistenceDatabase.personDao().getPeople();
+        return people;
+    }
+
+    public void getAllPeople() {
+        persistenceDatabase.personDao().getPeople()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(people1 -> {
+                    people.postValue(people1);
+                }, throwable -> {
+                    throwable.printStackTrace();
+                });
     }
 
     public Observable<Person> addPerson(String name) {
@@ -62,7 +76,6 @@ public class DataRepository {
                     return person;
                 }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
-
     }
 
     public Observable<Person> removePerson(Person person) {
