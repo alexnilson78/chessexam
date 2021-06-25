@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 import com.anilson.chesshealthexam.R;
 import com.anilson.chesshealthexam.databinding.ActivityMainBinding;
-import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
+import com.anilson.chesshealthexam.viewmodels.PersonListViewModel;
 
 import android.view.Menu;
 import android.view.MenuItem;

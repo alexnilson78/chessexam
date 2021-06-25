@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import com.anilson.chesshealthexam.R;
 import com.anilson.chesshealthexam.databinding.FragmentListBinding;
 import com.anilson.chesshealthexam.db.entities.Person;
-import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
+import com.anilson.chesshealthexam.viewmodels.PersonListViewModel;
 import com.anilson.chesshealthexam.util.PreferencesUtil;
 
 import org.jetbrains.annotations.NotNull;

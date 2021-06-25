@@ -3,7 +3,7 @@ package com.anilson.chesshealthexam.ui;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import com.anilson.chesshealthexam.databinding.DialogAddPersonBinding;
-import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
+import com.anilson.chesshealthexam.viewmodels.PersonListViewModel;
 
 import android.os.Bundle;
 import android.text.Editable;

@@ -1,4 +1,4 @@
-package com.anilson.chesshealthexam.ui.viewmodels;
+package com.anilson.chesshealthexam.viewmodels;
 
 import com.anilson.chesshealthexam.R;
 import com.anilson.chesshealthexam.db.entities.Person;

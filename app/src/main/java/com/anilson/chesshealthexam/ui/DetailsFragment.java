@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.anilson.chesshealthexam.R;
 import com.anilson.chesshealthexam.databinding.FragmentDetailsBinding;
-import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
+import com.anilson.chesshealthexam.viewmodels.PersonListViewModel;
 import com.anilson.chesshealthexam.util.Constants;
 import com.bumptech.glide.Glide;
 
