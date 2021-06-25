@@ -26,7 +26,6 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
 
     private PersonListViewModel viewModel;
     private FragmentListBinding binding;
-    private boolean isListingReversed = false;
 
     @Override
     public View onCreateView(
@@ -51,6 +50,7 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
         setUpViewModel();
         setUpSwipeHandler();
         setUpFilterButton();
+        setUpSortIndicator();
     }
 
     @Override
@@ -79,12 +79,8 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
     private void setUpViewModel() {
         if (getActivity() != null) {
             viewModel = new ViewModelProvider(getActivity()).get(PersonListViewModel.class);
-            viewModel.getIsReversed().observe(getViewLifecycleOwner(), isReversed -> {
-                isListingReversed = isReversed;
-                //TODO handle as an event and reload list
-            });
             viewModel.getPeople().observe(getViewLifecycleOwner(), people -> {
-                if(isListingReversed) {
+                if(viewModel.getIsReversed()) {
                     Collections.reverse(people);
                 }
                 binding.recyclerView.swapAdapter(new PeopleAdapter(people, FirstFragment.this), false);
@@ -105,6 +101,23 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
             binding.filterEditText.setVisibility(View.VISIBLE);
         }
         //TODO clear filtering
+    }
+
+    private void setUpSortIndicator() {
+        binding.sortIndicator.setOnClickListener(v -> {
+            viewModel.reverseSortOrder();
+            viewModel.loadPeople();
+            setSortIndicatorRotation();
+        });
+        setSortIndicatorRotation();
+    }
+
+    private void  setSortIndicatorRotation() {
+        float rotation = 0;
+        if (viewModel.getIsReversed()) {
+            rotation = 180;
+        }
+        binding.sortIndicator.setRotation(rotation);
     }
 
     @Override

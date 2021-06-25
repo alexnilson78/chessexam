@@ -15,6 +15,16 @@
         android:textSize="@dimen/header_text_size"
         android:text="@string/header_name"/>
 
+    <ImageView
+        android:id="@+id/sortIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/nameLabel"
+        app:layout_constraintBottom_toBottomOf="@id/nameLabel"
+        app:layout_constraintStart_toEndOf="@id/nameLabel"
+        android:contentDescription="@string/sort_indicator"
+        android:src="@drawable/ic_baseline_arrow_downward_24" />
+
     <TextView
         android:id="@+id/detailsLabel"
         android:layout_width="wrap_content"

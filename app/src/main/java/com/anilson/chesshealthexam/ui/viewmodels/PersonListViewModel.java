@@ -25,25 +25,24 @@ public class PersonListViewModel extends ViewModel {
     }
 
     private final MutableLiveData<Person> selectedPerson = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> isReversed = new MutableLiveData<>();
+    private boolean isReversed = false;
 
     private LiveData<List<Person>> people;
 
     public LiveData<List<Person>> getPeople() {
         if (people == null) {
             people = dataRepository.getPeople();
-            isReversed.postValue(false);
             loadPeople();
         }
         return people;
     }
 
-    public LiveData<Boolean> getIsReversed() {
+    public boolean getIsReversed() {
         return isReversed;
     }
 
     public void reverseSortOrder() {
-        isReversed.postValue(!isReversed.getValue());
+        isReversed = !isReversed;
     }
 
     public void selectPerson(Person person) {

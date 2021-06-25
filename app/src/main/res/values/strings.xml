@@ -20,6 +20,7 @@
     <string name="country_code_format">Country code: %1$s (%2$s)</string>
     <string name="probability">Probability</string>
     <string name="filter_hint">Work in progress</string>
+    <string name="sort_indicator">Sort Indicator</string>
 
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
