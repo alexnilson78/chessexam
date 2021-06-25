@@ -65,6 +65,7 @@
         tools:text="US" />
 
     <ImageView
+        android:id="@+id/flagImageView"
         android:layout_width="wrap_content"
         android:layout_height="64dp"
         app:layout_constraintTop_toTopOf="@id/countryCodeTextview"
