@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.ListFragment">
 
+    <View
+        android:id="@+id/filterBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/purple_200"
+        app:layout_constraintTop_toTopOf="@id/filterMaxAge"
+        app:layout_constraintBottom_toBottomOf="@id/filterMinAge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
@@ -17,8 +29,9 @@
         android:id="@+id/nameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filterMinAge"
         app:layout_constraintStart_toStartOf="parent"
+        android:padding="8dp"
         android:textSize="@dimen/header_text_size"
         android:text="@string/header_name"/>
 
@@ -36,8 +49,9 @@
         android:id="@+id/detailsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/nameLabel"
         app:layout_constraintStart_toStartOf="@id/guideline"
+        android:padding="8dp"
         android:textSize="@dimen/header_text_size"
         android:text="@string/header_details" />
 
@@ -45,8 +59,10 @@
         android:id="@+id/filterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/detailsLabel"
+        app:layout_constraintBottom_toBottomOf="@id/detailsLabel"
         app:layout_constraintEnd_toEndOf="parent"
+        android:padding="4dp"
         android:contentDescription="@string/filter_people"
         android:src="@drawable/ic_baseline_filter_alt_24"/>
 
@@ -54,7 +70,7 @@
         android:id="@+id/filterMinAge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/nameLabel"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/filterMaxAge"
         android:visibility="gone"
@@ -68,7 +84,7 @@
         android:id="@+id/filterMaxAge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/nameLabel"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/filterMinAge"
         app:layout_constraintEnd_toStartOf="@id/countryCodeFilter"
         android:visibility="gone"
@@ -82,9 +98,9 @@
         android:id="@+id/countryCodeFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/nameLabel"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/filterMaxAge"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/filterButton"
         android:visibility="gone"
         tools:visibility="visible"
         android:hint="@string/filter_country_hint"
@@ -98,7 +114,7 @@
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/countryCodeFilter"
+        app:layout_constraintTop_toBottomOf="@id/nameLabel"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

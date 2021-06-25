@@ -113,10 +113,12 @@ public class ListFragment extends Fragment implements PeopleAdapter.Callback {
             binding.countryCodeFilter.setVisibility(View.GONE);
             binding.filterMinAge.setVisibility(View.GONE);
             binding.filterMaxAge.setVisibility(View.GONE);
+            binding.filterBackground.setVisibility(View.GONE);
         } else {
             binding.countryCodeFilter.setVisibility(View.VISIBLE);
             binding.filterMinAge.setVisibility(View.VISIBLE);
             binding.filterMaxAge.setVisibility(View.VISIBLE);
+            binding.filterBackground.setVisibility(View.VISIBLE);
         }
         binding.countryCodeFilter.setText("");
         binding.filterMinAge.setText("");
