@@ -12,6 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintVertical_bias="0"
         android:textSize="@dimen/name_text_size"
@@ -21,9 +22,9 @@
         android:id="@+id/ageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/nameTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/nameTextView"
+        app:layout_constraintStart_toStartOf="@id/nationalityTextView"
+        app:layout_constraintEnd_toEndOf="@id/nationalityTextView"
         app:layout_constraintHorizontal_bias="0"
         tools:text="Age: 12" />
 
@@ -32,39 +33,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/ageTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/nationalityTextView"
+        app:layout_constraintEnd_toEndOf="@id/nationalityTextView"
         app:layout_constraintHorizontal_bias="0"
-        tools:text="Gender: Male" />
-
-    <TextView
-        android:id="@+id/genderProbabilityTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/genderTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        tools:text="90%" />
+        tools:text="Gender: Male (90%)" />
 
     <TextView
         android:id="@+id/nationalityTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/genderProbabilityTextView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/genderTextView"
+        app:layout_constraintStart_toEndOf="@id/nameTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        tools:text="Country code: US" />
-
-    <TextView
-        android:id="@+id/nationalityProbability"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/nationalityTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        tools:text = "90%" />
+        android:layout_marginEnd="24dp"
+        app:layout_constraintHorizontal_bias="1"
+        tools:text="Country code: US (90%)" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

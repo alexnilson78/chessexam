@@ -41,10 +41,8 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
         percentFormat.setMinimumFractionDigits(2);
         holder.binding.nameTextView.setText(person.name);
         holder.binding.ageTextView.setText(getString(holder, R.string.age_format, person.age));
-        holder.binding.genderTextView.setText(getString(holder, R.string.gender_format, person.gender));
-        holder.binding.genderProbabilityTextView.setText(percentFormat.format(person.genderProbability));
-        holder.binding.nationalityTextView.setText(getString(holder, R.string.country_code_format, person.countryCode));
-        holder.binding.nationalityProbability.setText(percentFormat.format(person.countryProbability));
+        holder.binding.genderTextView.setText(getString(holder, R.string.gender_format, person.gender, percentFormat.format(person.genderProbability)));
+        holder.binding.nationalityTextView.setText(getString(holder, R.string.country_code_format, person.countryCode, percentFormat.format(person.countryProbability)));
         holder.binding.getRoot().setOnClickListener(v -> {
             callback.onListItemClick(person);
         });
