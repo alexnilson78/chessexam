@@ -49,7 +49,7 @@ public class DataRepository {
         persistenceDatabase.personDao().insertAll(person);
     }
 
-    public Observable<Person> getPerson(String name) {
+    public Observable<Person> addPerson(String name) {
         return Observable.zip(ageService.getAge(name),
                 genderService.getGender(name),
                 nationalityService.getNationality(name),

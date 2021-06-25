@@ -14,15 +14,26 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_addPersonDialog"
+            app:destination="@id/addPersonDialog" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.anilson.chesshealthexam.ui.SecondFragment"
-        android:label="@string/second_fragment_label"
+        android:label="{title}"
         tools:layout="@layout/fragment_second">
+
+        <argument
+            android:name="title"
+            app:argType="string" />
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/addPersonDialog"
+        android:name="com.anilson.chesshealthexam.ui.AddPersonDialog"
+        android:label="@string/add_person" />
 </navigation>

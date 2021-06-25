@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import dagger.hilt.android.AndroidEntryPoint;
 
+import com.anilson.chesshealthexam.R;
 import com.anilson.chesshealthexam.databinding.FragmentListBinding;
 import com.anilson.chesshealthexam.ui.viewmodels.PersonListViewModel;
 
@@ -36,7 +38,7 @@ public class FirstFragment extends Fragment {
 
         binding.addButton.setOnClickListener(v -> {
             //TODO wire up adding new people
-            viewModel.getPerson("Alex");
+            NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_addPersonDialog);
         });
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

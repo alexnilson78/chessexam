@@ -23,6 +23,6 @@ public interface PersonDao {
     @Delete
     void delete(Person person);
 
-    @Query("SELECT * FROM person ORDER BY name DESC")
+    @Query("SELECT * FROM person ORDER BY name ASC")
     LiveData<List<Person>> getPeople();
 }
