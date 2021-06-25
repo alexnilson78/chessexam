@@ -48,8 +48,9 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        setUpSwipeHandler();
         setUpViewModel();
+        setUpSwipeHandler();
+        setUpFilterButton();
     }
 
     @Override
@@ -89,6 +90,21 @@ public class FirstFragment extends Fragment implements PeopleAdapter.Callback {
                 binding.recyclerView.swapAdapter(new PeopleAdapter(people, FirstFragment.this), false);
             });
         }
+    }
+
+    private void setUpFilterButton() {
+        binding.filterButton.setOnClickListener(v -> {
+            toggleFilterVisibility();
+        });
+    }
+
+    private void toggleFilterVisibility() {
+        if (binding.filterEditText.getVisibility() == View.VISIBLE) {
+            binding.filterEditText.setVisibility(View.GONE);
+        } else {
+            binding.filterEditText.setVisibility(View.VISIBLE);
+        }
+        //TODO clear filtering
     }
 
     @Override
